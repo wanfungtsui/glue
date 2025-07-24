@@ -61,11 +61,21 @@ interface FigmaFile {
 
 // 从Figma URL提取文件ID
 export function extractFileIdFromUrl(url: string): string {
-  const match = url.match(/figma\.com\/design\/([a-zA-Z0-9]+)/);
-  if (!match) {
-    throw new Error('Invalid Figma URL format');
+  // 支持多种Figma URL格式
+  const patterns = [
+    /figma\.com\/file\/([a-zA-Z0-9]+)/,  // figma.com/file/[fileId]
+    /figma\.com\/design\/([a-zA-Z0-9]+)/, // figma.com/design/[fileId] (旧格式)
+    /figma\.com\/proto\/([a-zA-Z0-9]+)/   // figma.com/proto/[fileId]
+  ];
+  
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) {
+      return match[1];
+    }
   }
-  return match[1];
+  
+  throw new Error('Invalid Figma URL format. Please use a valid Figma file URL (e.g., https://www.figma.com/file/[fileId]/[filename])');
 }
 
 // 初始化Figma客户端
