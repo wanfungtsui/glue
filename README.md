@@ -7,7 +7,7 @@ sdk: docker
 app_port: 7860
 ---
 
-# Glue - AI-Powered Website Design System Analyzer
+# Glue - AI Web Component Generator
 
 <div align="center">
   <p><em>Intelligent website design system analysis and AI-powered component generation</em></p>
@@ -19,45 +19,29 @@ Glue is an innovative web-based application that leverages AI to analyze existin
 
 ## ✨ Core Features
 
-### 🔍 Website Style Analyzer
-- **URL Input**: Direct website analysis via URL input
-- **File Upload**: Direct HTML/CSS file analysis capability
-- **Intelligent Style Extraction**:
-  - Comprehensive CSS style parsing and analysis
-  - DOM structure analysis with Cheerio
-  - Smart design element extraction (colors, fonts, spacing, gradients)
-  - Design pattern recognition and component identification
+### 🔍 Multi-Source Analysis
+- **Website URL Analysis**: Direct website analysis via URL input
+- **HTML/CSS File Upload**: Direct file analysis with drag-and-drop support
+- **Figma Design Integration**: Analyze Figma design files and extract design tokens
+- **Intelligent Style Extraction**: Comprehensive CSS parsing and design pattern recognition
 
-### 🎨 Advanced Color Categorization
-- **Smart Color Classification**:
-  - **Primary Colors**: Main brand elements, CTA buttons, headers
-  - **Secondary Colors**: Supporting elements, secondary buttons
-  - **Background Colors**: Page backgrounds, card backgrounds
-  - **Text Colors**: Main text, headings, body content
-  - **Accent Colors**: Highlights, links, active states
-  - **Error/Warning Colors**: Error states, warnings, alerts
+### 🎨 Advanced Design System Analysis
+- **Smart Color Categorization**: Primary, secondary, background, text, accent, and error colors
+- **Typography System**: Font families, sizes, weights, and hierarchy analysis
+- **Layout & Spacing**: Margin, padding, and spacing pattern detection
+- **Component Recognition**: Automatic identification of UI components and patterns
 
-### 📝 Typography System Analysis
-- **Font Priority Detection**: Automatically ranks fonts by usage importance
-- **Font Size Hierarchy**: Organizes font sizes from largest to smallest
-- **Typography Pattern Recognition**: Identifies consistent text styling patterns
-
-### 📏 Layout & Spacing Analysis
-- **Spacing System Extraction**: Identifies margin and gap patterns
-- **Padding Analysis**: Extracts padding values and usage patterns
-- **Layout Consistency Detection**: Recognizes spacing rhythm and patterns
-
-### 🤖 AI Component Generator
+### 🤖 AI Component Generation
 - **DeepSeek AI Integration**: Advanced AI-powered component generation
-- **Style-Aware Generation**: Creates components that match analyzed design systems
-- **Context-Intelligent Prompts**: Natural language component requests
-- **Multi-Format Output**: Generates HTML, CSS, and component descriptions
+- **Style-Consistent Output**: Components that match analyzed design systems
+- **Natural Language Prompts**: Describe components in plain English
+- **Multi-Format Export**: HTML, CSS, and component descriptions
 
-### 💻 Code Export
-- **Production-Ready Code**: Clean, well-structured HTML and CSS
-- **Responsive Design**: Mobile-first, adaptive layouts
-- **Accessibility Features**: ARIA labels, semantic HTML, proper contrast
-- **Modern CSS**: Uses CSS custom properties, Flexbox, and Grid
+### 💻 Code Export & Preview
+- **Real-time Preview**: See generated components instantly
+- **Production-Ready Code**: Clean, accessible, and responsive output
+- **Multiple Export Formats**: HTML, CSS, and React components
+- **Design Token Export**: Extract and reuse design tokens
 
 ## 🏗️ Technical Architecture
 
@@ -67,8 +51,8 @@ Glue is an innovative web-based application that leverages AI to analyze existin
 - **TailwindCSS** - Utility-first CSS framework for rapid styling
 - **React Router** - Client-side routing and navigation
 - **Redux Toolkit** - State management and data flow
-- **Headless UI** - Accessible, unstyled UI components
-- **Heroicons** - Beautiful hand-crafted SVG icons
+- **React Dropzone** - File upload with drag-and-drop
+- **Material Web Components** - Modern UI components
 
 ### Backend Stack
 - **Node.js** - Server-side JavaScript runtime
@@ -80,6 +64,7 @@ Glue is an innovative web-based application that leverages AI to analyze existin
 
 ### AI & Analysis
 - **DeepSeek API** - Advanced AI for component generation and style analysis
+- **Figma API** - Design file analysis and token extraction
 - **Custom CSS Parser** - Intelligent style extraction and categorization
 - **Design System Analyzer** - Automated design pattern recognition
 
@@ -100,7 +85,7 @@ Glue is an innovative web-based application that leverages AI to analyze existin
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/glue.git
+   git clone https://github.com/wanfungtsui/glue.git
    cd glue
    ```
 
@@ -118,7 +103,7 @@ Glue is an innovative web-based application that leverages AI to analyze existin
 
 4. **Start the development servers**
    ```bash
-   npm start
+   npm run dev
    ```
 
    This command will start:
@@ -152,6 +137,10 @@ glue/
 │   ├── src/
 │   │   ├── components/       # Reusable UI components
 │   │   ├── pages/           # Page components
+│   │   │   ├── Home.tsx     # Landing page
+│   │   │   ├── Analysis.tsx # Design analysis interface
+│   │   │   ├── Generator.tsx # AI component generator
+│   │   │   └── CodeExport.tsx # Code export and preview
 │   │   ├── services/        # API service functions
 │   │   ├── store/          # Redux store configuration
 │   │   ├── types/          # TypeScript type definitions
@@ -273,10 +262,11 @@ The analyzer provides comprehensive design system insights:
   },
   "typography": {
     "fonts": ["Inter", "system-ui", "sans-serif"],
-    "sizes": ["2.25rem", "1.875rem", "1.5rem", "1.25rem", "1rem"]
+    "sizes": ["2.25rem", "1.875rem", "1.5rem", "1.25rem", "1rem"],
+    "weights": ["400", "500", "600", "700"]
   },
   "spacing": ["0.5rem", "1rem", "1.5rem", "2rem", "3rem"],
-  "padding": ["0.25rem", "0.5rem", "1rem", "1.5rem", "2rem"],
+  "components": ["button", "input", "card", "navigation"],
   "gradients": ["linear-gradient(to right, #3b82f6, #1d4ed8)"]
 }
 ```
