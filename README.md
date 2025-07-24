@@ -1,363 +1,128 @@
-# Glue - AI-Powered Website Design System Analyzer
+# Glue - AI Web Component Generator
 
-<div align="center">
-  <p><em>Intelligent website design system analysis and AI-powered component generation</em></p>
-</div>
+AI-powered website design system analyzer and component generator with Figma integration.
 
-## 🚀 Overview
+## 🚀 Features
 
-Glue is an innovative web-based application that leverages AI to analyze existing website styles and generate new, style-consistent web components. This tool empowers designers and developers to rapidly create components that seamlessly match their existing website's design language.
+- **Website Analysis**: Analyze any website's design system automatically
+- **Figma Integration**: Import and analyze Figma design files
+- **AI Component Generation**: Generate React components with AI
+- **Design Token Extraction**: Extract colors, typography, and spacing
+- **Real-time Preview**: See generated components instantly
 
-## ✨ Core Features
+## 🏗️ Architecture
 
-### 🔍 Website Style Analyzer
-- **URL Input**: Direct website analysis via URL input
-- **File Upload**: Direct HTML/CSS file analysis capability
-- **Intelligent Style Extraction**:
-  - Comprehensive CSS style parsing and analysis
-  - DOM structure analysis with Cheerio
-  - Smart design element extraction (colors, fonts, spacing, gradients)
-  - Design pattern recognition and component identification
+- **Frontend**: React + TypeScript + Tailwind CSS
+- **Backend**: Node.js + Express + TypeScript
+- **AI**: DeepSeek API for component generation
+- **Design**: Figma API for design file analysis
+- **Web Scraping**: Puppeteer for website analysis
 
-### 🎨 Advanced Color Categorization
-- **Smart Color Classification**:
-  - **Primary Colors**: Main brand elements, CTA buttons, headers
-  - **Secondary Colors**: Supporting elements, secondary buttons
-  - **Background Colors**: Page backgrounds, card backgrounds
-  - **Text Colors**: Main text, headings, body content
-  - **Accent Colors**: Highlights, links, active states
-  - **Error/Warning Colors**: Error states, warnings, alerts
+## 🚀 Deployment
 
-### 📝 Typography System Analysis
-- **Font Priority Detection**: Automatically ranks fonts by usage importance
-- **Font Size Hierarchy**: Organizes font sizes from largest to smallest
-- **Typography Pattern Recognition**: Identifies consistent text styling patterns
+### Hugging Face Spaces Deployment
 
-### 📏 Layout & Spacing Analysis
-- **Spacing System Extraction**: Identifies margin and gap patterns
-- **Padding Analysis**: Extracts padding values and usage patterns
-- **Layout Consistency Detection**: Recognizes spacing rhythm and patterns
+This project is configured for deployment on Hugging Face Spaces.
 
-### 🤖 AI Component Generator
-- **DeepSeek AI Integration**: Advanced AI-powered component generation
-- **Style-Aware Generation**: Creates components that match analyzed design systems
-- **Context-Intelligent Prompts**: Natural language component requests
-- **Multi-Format Output**: Generates HTML, CSS, and component descriptions
+#### Prerequisites
 
-### 💻 Code Export
-- **Production-Ready Code**: Clean, well-structured HTML and CSS
-- **Responsive Design**: Mobile-first, adaptive layouts
-- **Accessibility Features**: ARIA labels, semantic HTML, proper contrast
-- **Modern CSS**: Uses CSS custom properties, Flexbox, and Grid
+1. **Hugging Face Account**: Sign up at [huggingface.co](https://huggingface.co)
+2. **API Keys**: 
+   - Figma Personal Access Token
+   - DeepSeek API Key
 
-## 🏗️ Technical Architecture
+#### Deployment Steps
 
-### Frontend Stack
-- **React 18** - Modern React with hooks and concurrent features
-- **TypeScript** - Full type safety and enhanced developer experience
-- **TailwindCSS** - Utility-first CSS framework for rapid styling
-- **React Router** - Client-side routing and navigation
-- **Redux Toolkit** - State management and data flow
-- **Headless UI** - Accessible, unstyled UI components
-- **Heroicons** - Beautiful hand-crafted SVG icons
+1. **Create a new Space**:
+   - Go to [Hugging Face Spaces](https://huggingface.co/spaces)
+   - Click "Create new Space"
+   - Choose "Docker" as the SDK
+   - Set visibility (Public/Private)
 
-### Backend Stack
-- **Node.js** - Server-side JavaScript runtime
-- **Express.js** - Fast, unopinionated web framework
-- **TypeScript** - Type-safe server development
-- **Cheerio** - Server-side HTML parsing and manipulation
-- **Puppeteer** - Web scraping and page analysis
-- **CORS** - Cross-origin resource sharing support
+2. **Configure Environment Variables**:
+   - Go to your Space settings
+   - Add the following secrets:
+     - `FIGMA_TOKEN`: Your Figma Personal Access Token
+     - `DEEPSEEK_API_KEY`: Your DeepSeek API Key
 
-### AI & Analysis
-- **DeepSeek API** - Advanced AI for component generation and style analysis
-- **Custom CSS Parser** - Intelligent style extraction and categorization
-- **Design System Analyzer** - Automated design pattern recognition
+3. **Deploy**:
+   - Push your code to the Space repository
+   - Hugging Face will automatically build and deploy your app
 
-### Development Tools
-- **ts-node-dev** - TypeScript development with hot reload
-- **Concurrently** - Run multiple npm scripts simultaneously
-- **ESLint & Prettier** - Code linting and formatting
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn package manager
-- DeepSeek API key
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/glue.git
-   cd glue
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment variables**
-   ```bash
-   # Create .env file in the project root
-   echo "DEEPSEEK_API_KEY=your_deepseek_api_key" > .env
-   ```
-
-4. **Start the development servers**
-   ```bash
-   npm start
-   ```
-
-   This command will start:
-   - Frontend server at `http://localhost:3000`
-   - Backend server at `http://localhost:8080`
-
-### Individual Commands
+#### Local Development
 
 ```bash
-# Start only the frontend
-npm run start:frontend
+# Install dependencies
+npm install
+cd frontend && npm install
 
-# Start only the backend  
-npm run start:backend
+# Set environment variables
+cp .env.example .env
+# Edit .env with your API keys
 
-# Build for production
-npm run build
+# Start development server
+npm run dev
+```
 
-# Build backend for production
-npm run build:backend
+#### Docker Deployment
 
-# Run tests
-npm test
+```bash
+# Build and run with Docker
+docker-compose up --build
+
+# Or build manually
+docker build -t glue-app .
+docker run -p 8080:8080 --env-file .env glue-app
 ```
 
 ## 📁 Project Structure
 
 ```
 glue/
-├── frontend/                  # React frontend application
+├── backend/           # Node.js backend
 │   ├── src/
-│   │   ├── components/       # Reusable UI components
-│   │   ├── pages/           # Page components
-│   │   ├── services/        # API service functions
-│   │   ├── store/          # Redux store configuration
-│   │   ├── types/          # TypeScript type definitions
-│   │   └── utils/          # Utility functions
-│   ├── public/             # Static assets
-│   └── package.json        # Frontend dependencies
-├── backend/                  # Node.js backend server
-│   └── src/
-│       ├── server.ts       # Main Express server
-│       ├── analyzer.ts     # AI analyzer implementation
-│       └── scraper.ts      # Website scraping functionality
-├── node_modules/            # Dependencies
-├── package.json            # Project configuration & scripts
-└── README.md              # Project documentation
+│   │   ├── server.ts  # Express server
+│   │   ├── analyzer.ts # Design analysis logic
+│   │   ├── figma.ts   # Figma API integration
+│   │   └── scraper.ts # Web scraping logic
+│   └── tsconfig.json
+├── frontend/          # React frontend
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   └── services/
+│   └── package.json
+├── Dockerfile         # Docker configuration
+├── docker-compose.yml # Docker Compose setup
+└── package.json       # Root package.json
 ```
 
-## 🛠️ API Endpoints
+## 🔧 API Endpoints
 
-### Core Analysis Endpoints
+- `POST /api/analyze` - Analyze website by URL
+- `POST /api/analyze-files` - Analyze HTML and CSS files
+- `POST /api/analyze-figma` - Analyze Figma design file
+- `POST /api/generate` - Generate component with AI
+- `GET /health` - Health check
 
-- **`POST /api/analyze`** - Analyze website by URL
-  ```json
-  {
-    "url": "https://example.com"
-  }
-  ```
+## 🛠️ Environment Variables
 
-- **`POST /api/analyze-files`** - Analyze HTML/CSS files
-  ```json
-  {
-    "html": "<html>...</html>",
-    "css": "body { ... }"
-  }
-  ```
+- `FIGMA_TOKEN`: Figma Personal Access Token
+- `DEEPSEEK_API_KEY`: DeepSeek API Key
+- `PORT`: Server port (default: 8080)
+- `NODE_ENV`: Environment (development/production)
 
-- **`POST /api/generate`** - Generate AI component
-  ```json
-  {
-    "prompt": "Create a login form",
-    "analysisData": { /* analysis results */ }
-  }
-  ```
+## 📝 License
 
-- **`GET /health`** - Health check endpoint
-
-## 🎯 Usage Examples
-
-### 1. Website Analysis
-```javascript
-// Analyze a website by URL
-const response = await fetch('/api/analyze', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    url: 'https://example.com'
-  })
-});
-```
-
-### 2. File Analysis
-```javascript
-// Analyze HTML/CSS files directly
-const response = await fetch('/api/analyze-files', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    html: htmlContent,
-    css: cssContent
-  })
-});
-```
-
-### 3. Component Generation
-```javascript
-// Generate a component with AI
-const response = await fetch('/api/generate', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    prompt: 'Create a contact form with email and message fields',
-    analysisData: analysisResults
-  })
-});
-```
-
-## 🎨 Design System Analysis Output
-
-The analyzer provides comprehensive design system insights:
-
-```json
-{
-  "colors": {
-    "primary": ["#3b82f6", "#2563eb"],
-    "secondary": ["#64748b", "#475569"],
-    "background": ["#ffffff", "#f8fafc"],
-    "text": ["#1e293b", "#334155"],
-    "accent": ["#06b6d4", "#0891b2"],
-    "error": ["#dc2626", "#b91c1c"]
-  },
-  "typography": {
-    "fonts": ["Inter", "system-ui", "sans-serif"],
-    "sizes": ["2.25rem", "1.875rem", "1.5rem", "1.25rem", "1rem"]
-  },
-  "spacing": ["0.5rem", "1rem", "1.5rem", "2rem", "3rem"],
-  "padding": ["0.25rem", "0.5rem", "1rem", "1.5rem", "2rem"],
-  "gradients": ["linear-gradient(to right, #3b82f6, #1d4ed8)"]
-}
-```
-
-## 🤖 AI Component Generation
-
-The AI system uses DeepSeek's advanced language model with intelligent prompting:
-
-- **Context-Aware**: Understands design system constraints
-- **Style-Consistent**: Generates components matching existing patterns
-- **Production-Ready**: Outputs clean, accessible code
-- **Responsive**: Creates mobile-first, adaptive layouts
-
-## 🔧 Configuration
-
-### Environment Variables
-
-Create a `.env` file with the following variables:
-
-```bash
-# Required
-DEEPSEEK_API_KEY=your_deepseek_api_key
-
-# Optional
-PORT=8080
-NODE_ENV=development
-```
-
-### DeepSeek API Setup
-
-1. Sign up at [DeepSeek](https://platform.deepseek.com/)
-2. Generate an API key
-3. Add the key to your `.env` file
-
-## 🚦 Development Guidelines
-
-### Code Quality
-- TypeScript for type safety
-- ESLint for code linting
-- Prettier for code formatting
-- Consistent file naming conventions
-
-### API Design
-- RESTful endpoint structure
-- Proper HTTP status codes
-- Comprehensive error handling
-- Request/response validation
-
-### Performance
-- Efficient CSS parsing algorithms
-- Optimized AI API calls
-- Response caching for repeated analyses
-- Minimal bundle sizes
-
-## 🧪 Testing
-
-```bash
-# Run frontend tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Generate test coverage
-npm run test:coverage
-```
-
-## 📊 Performance Metrics
-
-- **Analysis Speed**: < 5 seconds for typical websites
-- **Component Generation**: < 3 seconds average response time
-- **Memory Usage**: Optimized for efficient processing
-- **Concurrent Users**: Supports 100+ simultaneous analyses
-
-## 🔒 Security Features
-
-- **Input Validation**: Comprehensive request sanitization
-- **Rate Limiting**: Prevents API abuse
-- **CORS Configuration**: Secure cross-origin requests
-- **Environment Isolation**: Secure API key management
-
-## 🌟 Future Roadmap
-
-- [ ] **Multi-Framework Support**: React, Vue, Angular code generation
-- [ ] **Component Library**: Sharable component marketplace
-- [ ] **Collaboration Tools**: Team sharing and version control
-- [ ] **Advanced AI Models**: Enhanced design system understanding
-- [ ] **Plugin System**: Extensible analyzer architecture
-- [ ] **Design Token Export**: Integration with design systems
+ISC License
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our contributing guidelines for details on:
-
-- Code style and standards
-- Pull request process
-- Issue reporting
-- Development setup
-
-## 📄 License
-
-This project is licensed under the ISC License - see the LICENSE file for details.
-
-## 🆘 Support
-
-- **Documentation**: Check this README and inline code comments
-- **Issues**: Report bugs and feature requests via GitHub Issues
-- **Discussions**: Join community discussions for help and ideas
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ---
 
-<div align="center">
-  <p>Built with ❤️ by the Glue team</p>
-  <p><em>Transforming design systems with AI-powered analysis</em></p>
-</div> 
+**Note**: This project requires API keys for Figma and DeepSeek services. Make sure to configure them in your Hugging Face Space settings or local environment file. 
