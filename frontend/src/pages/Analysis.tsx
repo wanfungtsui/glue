@@ -19,9 +19,18 @@ interface AnalysisData {
   typography: {
     fonts: string[];              // 按优先级排序的字体
     sizes: string[];              // 从大到小排列的字号
+    weights?: number[];           // 字重（Figma数据）
+    letterSpacings?: string[];    // 字符间距（Figma数据）
+    lineHeights?: string[];       // 行高（Figma数据）
   };
   spacing: string[];              // 间距值（去重并排序）
   padding: string[];              // 内边距值（去重并排序）
+  borderRadius?: string[];        // 圆角值（Figma数据）
+  shadows?: string[];             // 阴影效果（Figma数据）
+  components?: number;            // 组件数量（Figma数据）
+  styles?: number;                // 样式数量（Figma数据）
+  fileName?: string;              // 文件名（Figma数据）
+  lastModified?: string;          // 最后修改时间（Figma数据）
 }
 
 // 检查是否为渐变
@@ -508,7 +517,7 @@ const Analysis: React.FC = () => {
             
             <div style={{ 
               display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))', 
               gap: '24px' 
             }}>
               {/* 字体列表 */}
@@ -558,6 +567,124 @@ const Analysis: React.FC = () => {
                   )}
                 </div>
               </div>
+
+              {/* 字重列表 (Figma数据) */}
+              {data.typography.weights && data.typography.weights.length > 0 && (
+                <div>
+                  <h3 className="md-typescale-title-medium" style={{ 
+                    color: 'var(--md-sys-color-on-surface)', 
+                    marginBottom: '16px',
+                    fontWeight: '500'
+                  }}>
+                    Font Weights ({data.typography.weights.length})
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {data.typography.weights.map((weight, index) => (
+                      <div key={index} style={{ 
+                        padding: '12px',
+                        background: 'var(--md-sys-color-surface-variant)',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px'
+                      }}>
+                        <span style={{ 
+                          fontWeight: weight,
+                          fontSize: '16px',
+                          color: 'var(--md-sys-color-on-surface)'
+                        }}>
+                          Aa
+                        </span>
+                        <span className="md-typescale-body-medium" style={{ 
+                          color: 'var(--md-sys-color-on-surface)',
+                          fontWeight: '500'
+                        }}>
+                          {weight}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 字符间距列表 (Figma数据) */}
+              {data.typography.letterSpacings && data.typography.letterSpacings.length > 0 && (
+                <div>
+                  <h3 className="md-typescale-title-medium" style={{ 
+                    color: 'var(--md-sys-color-on-surface)', 
+                    marginBottom: '16px',
+                    fontWeight: '500'
+                  }}>
+                    Letter Spacing ({data.typography.letterSpacings.length})
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {data.typography.letterSpacings.map((spacing, index) => (
+                      <div key={index} style={{ 
+                        padding: '12px',
+                        background: 'var(--md-sys-color-surface-variant)',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px'
+                      }}>
+                        <span style={{ 
+                          letterSpacing: spacing,
+                          fontSize: '16px',
+                          color: 'var(--md-sys-color-on-surface)'
+                        }}>
+                          SAMPLE
+                        </span>
+                        <span className="md-typescale-body-medium" style={{ 
+                          color: 'var(--md-sys-color-on-surface)',
+                          fontWeight: '500'
+                        }}>
+                          {spacing}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 行高列表 (Figma数据) */}
+              {data.typography.lineHeights && data.typography.lineHeights.length > 0 && (
+                <div>
+                  <h3 className="md-typescale-title-medium" style={{ 
+                    color: 'var(--md-sys-color-on-surface)', 
+                    marginBottom: '16px',
+                    fontWeight: '500'
+                  }}>
+                    Line Heights ({data.typography.lineHeights.length})
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {data.typography.lineHeights.map((lineHeight, index) => (
+                      <div key={index} style={{ 
+                        padding: '12px',
+                        background: 'var(--md-sys-color-surface-variant)',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px'
+                      }}>
+                        <span style={{ 
+                          lineHeight: lineHeight,
+                          fontSize: '14px',
+                          color: 'var(--md-sys-color-on-surface)',
+                          width: '60px'
+                        }}>
+                          Sample text with line height
+                        </span>
+                        <span className="md-typescale-body-medium" style={{ 
+                          color: 'var(--md-sys-color-on-surface)',
+                          fontWeight: '500'
+                        }}>
+                          {lineHeight}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -640,6 +767,240 @@ const Analysis: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* 5. 边框圆角和阴影展示 (Figma数据) */}
+        {((data.borderRadius && data.borderRadius.length > 0) || (data.shadows && data.shadows.length > 0)) && (
+          <div className="md-elevation-1" style={{ 
+            background: 'var(--md-sys-color-surface-container-high)', 
+            borderRadius: '16px',
+            marginBottom: '24px'
+          }}>
+            <div style={{ padding: '24px' }}>
+              <h2 className="md-typescale-headline-medium" style={{ 
+                color: 'var(--md-sys-color-on-surface)', 
+                marginBottom: '16px',
+                fontWeight: '500'
+              }}>
+                Visual Effects
+              </h2>
+              
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
+                gap: '24px' 
+              }}>
+                {/* 边框圆角 */}
+                {data.borderRadius && data.borderRadius.length > 0 && (
+                  <div>
+                    <h3 className="md-typescale-title-medium" style={{ 
+                      color: 'var(--md-sys-color-on-surface)', 
+                      marginBottom: '16px',
+                      fontWeight: '500'
+                    }}>
+                      Border Radius ({data.borderRadius.length})
+                    </h3>
+                    <div style={{ 
+                      display: 'grid', 
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', 
+                      gap: '12px' 
+                    }}>
+                      {data.borderRadius.map((radius, index) => (
+                        <div key={index} style={{ 
+                          padding: '16px',
+                          background: 'var(--md-sys-color-surface-variant)',
+                          borderRadius: radius,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          gap: '8px',
+                          border: '1px solid var(--md-sys-color-outline)'
+                        }}>
+                          <div style={{ 
+                            width: '40px',
+                            height: '40px',
+                            background: 'var(--md-sys-color-primary)',
+                            borderRadius: radius
+                          }} />
+                          <span className="md-typescale-body-small" style={{ 
+                            color: 'var(--md-sys-color-on-surface)',
+                            fontWeight: '500',
+                            textAlign: 'center'
+                          }}>
+                            {radius}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* 阴影效果 */}
+                {data.shadows && data.shadows.length > 0 && (
+                  <div>
+                    <h3 className="md-typescale-title-medium" style={{ 
+                      color: 'var(--md-sys-color-on-surface)', 
+                      marginBottom: '16px',
+                      fontWeight: '500'
+                    }}>
+                      Shadows ({data.shadows.length})
+                    </h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      {data.shadows.map((shadow, index) => (
+                        <div key={index} style={{ 
+                          padding: '16px',
+                          background: 'var(--md-sys-color-surface-variant)',
+                          borderRadius: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '16px'
+                        }}>
+                          <div style={{ 
+                            width: '60px',
+                            height: '60px',
+                            background: 'var(--md-sys-color-surface)',
+                            borderRadius: '8px',
+                            boxShadow: shadow,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}>
+                            <span style={{ 
+                              color: 'var(--md-sys-color-on-surface)',
+                              fontSize: '12px'
+                            }}>
+                              Box
+                            </span>
+                          </div>
+                          <span className="md-typescale-body-small" style={{ 
+                            color: 'var(--md-sys-color-on-surface)',
+                            fontWeight: '500',
+                            fontSize: '11px',
+                            wordBreak: 'break-all'
+                          }}>
+                            {shadow}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 6. Figma信息展示 */}
+        {(data.fileName || data.components !== undefined || data.styles !== undefined) && (
+          <div className="md-elevation-1" style={{ 
+            background: 'var(--md-sys-color-surface-container-high)', 
+            borderRadius: '16px',
+            marginBottom: '24px'
+          }}>
+            <div style={{ padding: '24px' }}>
+              <h2 className="md-typescale-headline-medium" style={{ 
+                color: 'var(--md-sys-color-on-surface)', 
+                marginBottom: '16px',
+                fontWeight: '500'
+              }}>
+                Figma File Information
+              </h2>
+              
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+                gap: '16px' 
+              }}>
+                {data.fileName && (
+                  <div style={{ 
+                    padding: '16px',
+                    background: 'var(--md-sys-color-surface-variant)',
+                    borderRadius: '8px'
+                  }}>
+                    <p className="md-typescale-body-small" style={{ 
+                      color: 'var(--md-sys-color-on-surface-variant)',
+                      margin: '0 0 4px 0'
+                    }}>
+                      File Name
+                    </p>
+                    <p className="md-typescale-body-medium" style={{ 
+                      color: 'var(--md-sys-color-on-surface)',
+                      margin: '0',
+                      fontWeight: '500'
+                    }}>
+                      {data.fileName}
+                    </p>
+                  </div>
+                )}
+
+                {data.components !== undefined && (
+                  <div style={{ 
+                    padding: '16px',
+                    background: 'var(--md-sys-color-surface-variant)',
+                    borderRadius: '8px'
+                  }}>
+                    <p className="md-typescale-body-small" style={{ 
+                      color: 'var(--md-sys-color-on-surface-variant)',
+                      margin: '0 0 4px 0'
+                    }}>
+                      Components
+                    </p>
+                    <p className="md-typescale-body-medium" style={{ 
+                      color: 'var(--md-sys-color-on-surface)',
+                      margin: '0',
+                      fontWeight: '500'
+                    }}>
+                      {data.components}
+                    </p>
+                  </div>
+                )}
+
+                {data.styles !== undefined && (
+                  <div style={{ 
+                    padding: '16px',
+                    background: 'var(--md-sys-color-surface-variant)',
+                    borderRadius: '8px'
+                  }}>
+                    <p className="md-typescale-body-small" style={{ 
+                      color: 'var(--md-sys-color-on-surface-variant)',
+                      margin: '0 0 4px 0'
+                    }}>
+                      Styles
+                    </p>
+                    <p className="md-typescale-body-medium" style={{ 
+                      color: 'var(--md-sys-color-on-surface)',
+                      margin: '0',
+                      fontWeight: '500'
+                    }}>
+                      {data.styles}
+                    </p>
+                  </div>
+                )}
+
+                {data.lastModified && (
+                  <div style={{ 
+                    padding: '16px',
+                    background: 'var(--md-sys-color-surface-variant)',
+                    borderRadius: '8px'
+                  }}>
+                    <p className="md-typescale-body-small" style={{ 
+                      color: 'var(--md-sys-color-on-surface-variant)',
+                      margin: '0 0 4px 0'
+                    }}>
+                      Last Modified
+                    </p>
+                    <p className="md-typescale-body-medium" style={{ 
+                      color: 'var(--md-sys-color-on-surface)',
+                      margin: '0',
+                      fontWeight: '500'
+                    }}>
+                      {new Date(data.lastModified).toLocaleDateString()}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 统计摘要 */}
         <div style={{ 
